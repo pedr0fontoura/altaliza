@@ -1,8 +1,10 @@
-﻿namespace Altaliza.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Altaliza.Domain.Entities
 {
     public class Vehicle : BaseEntity
     {
-        public int VehicleCategoryId { get; set; }
+        public VehicleCategory Category { get; set; }
 
         public string Name { get; set; }
 
@@ -15,5 +17,7 @@
         public float Rent7Day { get; set; }
 
         public float Rent15Day { get; set; }
+
+        public List<CharacterVehicle> CharactersVehicles { get; set; }
     }
 }

@@ -4,9 +4,9 @@ namespace Altaliza.Domain.Entities
 {
     public class CharacterVehicle : BaseEntity
     {
-        public int CharacterId { get; set; }
+        public Character Character { get; set; }
 
-        public int VehicleCategoryId { get; set; }
+        public Vehicle Vehicle { get; set; }
 
         public DateTime ExpirationDate { get; set; }
     }
