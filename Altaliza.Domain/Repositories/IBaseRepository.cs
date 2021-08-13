@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using Altaliza.Domain.Entities;
 
 namespace Altaliza.Domain.Repositories
@@ -11,8 +12,8 @@ namespace Altaliza.Domain.Repositories
 
         void Delete(int id);
 
-        IList<T> FindAll();
+        Task<T> FindById(int id);
 
-        T FindById(int id);
+        Task<IList<T>> FindAll();
     }
 }
