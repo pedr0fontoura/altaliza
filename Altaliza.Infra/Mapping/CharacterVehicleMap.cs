@@ -8,7 +8,7 @@ namespace Altaliza.Infra.Mapping
     {
         public void Configure(EntityTypeBuilder<CharacterVehicle> builder)
         {
-            builder.ToTable("CharactersVehicles");
+            builder.ToTable("characters_vehicles");
 
             builder.HasKey(characterVehicle => characterVehicle.Id);
 

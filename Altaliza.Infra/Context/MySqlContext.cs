@@ -1,14 +1,26 @@
-﻿using Altaliza.Domain.Entities;
-using Altaliza.Infra.Mapping;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Altaliza.Domain.Entities;
+using Altaliza.Infra.Mapping;
+using Altaliza.Infra.Config;
 
 namespace Altaliza.Infra.Context
 {
     public class MySqlContext : DbContext
     {
-        public MySqlContext(DbContextOptions<MySqlContext> options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var databaseConfig = new DatabaseConfiguration{
+                Server = "localhost",
+                Port = 3306,
+                User = "root",
+                Password = "admin",
+                Database = "altaliza"
+            };
 
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
+
+            optionsBuilder.UseMySql(databaseConfig.ToMySqlConnectionString(), serverVersion);
         }
 
         public DbSet<Character> Characters { get; set; }
