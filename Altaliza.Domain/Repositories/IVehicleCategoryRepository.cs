@@ -2,7 +2,7 @@
 
 namespace Altaliza.Domain.Repositories
 {
-    public interface IVehicleCategoryRepository : IBaseRepository<Character>
+    public interface IVehicleCategoryRepository : IBaseRepository<VehicleCategory>
     {
     }
 }
