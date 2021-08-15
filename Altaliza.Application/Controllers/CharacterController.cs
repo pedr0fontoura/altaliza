@@ -11,23 +11,31 @@ namespace Altaliza.Application.Controllers
     [Route("characters")]
     public class CharacterController : ControllerBase
     {
+        private readonly CharacterService _characterService;
+
+        public CharacterController(CharacterService characterService)
+        {
+            _characterService = characterService;
+        }
+
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Character>> Post([FromServices] CharacterService characterService, [FromBody] CreateCharacterDto data)
+        public async Task<ActionResult<Character>> Post([FromBody] CreateCharacterRequest request)
         {
-            if (!ModelState.IsValid)
+            var dto = new CreateCharacterDto
             {
-                return BadRequest(data);
-            }
+                Name = request.Name,
+                Wallet = request.Wallet,
+            };
 
-            return await characterService.CreateCharacter(data);
+            return await _characterService.CreateCharacter(dto);
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Character>>> Get([FromServices] CharacterService characterService)
+        public async Task<ActionResult<List<Character>>> Get()
         {
-            return await characterService.ListAllCharacters();
+            return await _characterService.ListAllCharacters();
         }
     }
 }
