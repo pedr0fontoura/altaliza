@@ -4,16 +4,16 @@ using Altaliza.Domain.Entities;
 
 namespace Altaliza.Domain.Repositories
 {
-    public interface IBaseRepository<T> where T : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        void Create(T entity);
+        Task<TEntity> Create(TEntity entity);
 
-        void Update(T entity);
+        Task<TEntity> Update(TEntity entity);
 
-        void Delete(int id);
+        Task Delete(int id);
 
-        Task<T> FindById(int id);
+        Task<TEntity> FindById(int id);
 
-        Task<IList<T>> FindAll();
+        Task<List<TEntity>> FindAll();
     }
 }
