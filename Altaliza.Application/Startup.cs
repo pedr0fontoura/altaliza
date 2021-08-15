@@ -11,7 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Altaliza.Domain.Repositories;
+using Altaliza.Domain.Services;
 using Altaliza.Infra.Context;
+using Altaliza.Infra.Repositories;
 
 namespace Altaliza.Application
 {
@@ -30,6 +33,10 @@ namespace Altaliza.Application
             services.AddControllers();
 
             services.AddDbContext<MySqlContext>();
+
+            services.AddScoped<ICharacterRepository, CharacterRepository>();
+
+            services.AddScoped<CharacterService, CharacterService>();
 
             services.AddSwaggerGen(c =>
             {
