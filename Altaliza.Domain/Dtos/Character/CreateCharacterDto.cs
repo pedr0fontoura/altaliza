@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Altaliza.Domain.Dtos.Character
+
+namespace Altaliza.Domain.Dtos
 {
     public class CreateCharacterDto
     {

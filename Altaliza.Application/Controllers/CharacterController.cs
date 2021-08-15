@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Altaliza.Domain.Entities;
 using Altaliza.Domain.Services;
-using Altaliza.Domain.Dtos.Character;
+using Altaliza.Domain.Dtos;
 
 namespace Altaliza.Application.Controllers
 {

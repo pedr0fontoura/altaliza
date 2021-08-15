@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Altaliza.Domain.Entities;
 using Altaliza.Domain.Repositories;
-using Altaliza.Domain.Dtos.Character;
+using Altaliza.Domain.Dtos;
 
 namespace Altaliza.Domain.Services
 {
