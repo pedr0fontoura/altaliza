@@ -19,7 +19,7 @@ namespace Altaliza.Infra.Repositories
             _set = _context.Set<TEntity>();
         }
 
-        public async Task<TEntity> Create(TEntity entity)
+        public virtual async Task<TEntity> Create(TEntity entity)
         {
             _set.Add(entity);
 
@@ -28,19 +28,19 @@ namespace Altaliza.Infra.Repositories
             return entity;
         }
 
-        public async Task<TEntity> FindById(int id)
+        public virtual async Task<TEntity> FindById(int id)
         {
             return await _set.FindAsync(id);
         }
 
-        public async Task<List<TEntity>> FindAll()
+        public virtual async Task<List<TEntity>> FindAll()
         {
             IQueryable<TEntity> query = _set;
 
             return await query.ToListAsync();
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public virtual async Task<TEntity> Update(TEntity entity)
         {
             _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
@@ -49,7 +49,7 @@ namespace Altaliza.Infra.Repositories
             return entity;
         }
 
-        public async Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
             var entity = await FindById(id);
 
