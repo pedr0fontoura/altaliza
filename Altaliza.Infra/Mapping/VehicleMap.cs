@@ -40,8 +40,7 @@ namespace Altaliza.Infra.Mapping
                 .IsRequired()
                 .HasColumnName("Rent15Day");
 
-            builder.HasOne(vehicle => vehicle.Category)
-                .WithMany(category => category.Vehicles);
+            builder.HasOne(vehicle => vehicle.Category);
 
             builder.HasMany(vehicle => vehicle.CharactersVehicles)
                 .WithOne(characterVehicle => characterVehicle.Vehicle);
