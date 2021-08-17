@@ -39,10 +39,12 @@ namespace Altaliza.Application
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddScoped<IVehicleCategoryRepository, VehicleCategoryRepository>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<ICharacterVehicleRepository, CharacterVehicleRepository>();
 
             services.AddScoped<CharacterService, CharacterService>();
             services.AddScoped<VehicleCategoryService, VehicleCategoryService>();
             services.AddScoped<VehicleService, VehicleService>();
+            services.AddScoped<CharacterVehicleService, CharacterVehicleService>();
 
             services.AddSwaggerGen(c =>
             {

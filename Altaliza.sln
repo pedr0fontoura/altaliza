@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Altaliza.Domain", "Altaliza
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Altaliza.Infra", "Altaliza.Infra", "{F5ED095C-1B4E-4BCB-AB36-EFD9EA48A348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altaliza.Application", "Altaliza.Application\Altaliza.Application.csproj", "{105E9117-91BB-41B7-B0C9-21901AFDA8B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Application", "Altaliza.Application\Altaliza.Application.csproj", "{105E9117-91BB-41B7-B0C9-21901AFDA8B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altaliza.Domain", "Altaliza.Domain\Altaliza.Domain.csproj", "{EFB9F529-01CB-404B-B4B4-C250F6D76E94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Domain", "Altaliza.Domain\Altaliza.Domain.csproj", "{EFB9F529-01CB-404B-B4B4-C250F6D76E94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altaliza.Infra", "Altaliza.Infra\Altaliza.Infra.csproj", "{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Infra", "Altaliza.Infra\Altaliza.Infra.csproj", "{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
