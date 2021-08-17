@@ -22,9 +22,6 @@ namespace Altaliza.Infra.Mapping
                 .IsRequired()
                 .HasColumnName("Wallet")
                 .HasColumnType("float");
-
-            builder.HasMany(character => character.Vehicles)
-                .WithOne(vehicle => vehicle.Character);
         }
     }
 }

@@ -17,7 +17,5 @@ namespace Altaliza.Domain.Entities
         public float Rent7Day { get; set; }
 
         public float Rent15Day { get; set; }
-
-        public List<CharacterVehicle> CharactersVehicles { get; set; }
     }
 }

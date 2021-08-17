@@ -16,11 +16,9 @@ namespace Altaliza.Infra.Mapping
                 .IsRequired()
                 .HasColumnName("ExpirationDate");
 
-            builder.HasOne(characterVehicle => characterVehicle.Character)
-                .WithMany(character => character.Vehicles);
+            builder.HasOne(characterVehicle => characterVehicle.Character);
 
-            builder.HasOne(characterVehicle => characterVehicle.Vehicle)
-                .WithMany(vehicle => vehicle.CharactersVehicles);
+            builder.HasOne(characterVehicle => characterVehicle.Vehicle);
         }
     }
 }

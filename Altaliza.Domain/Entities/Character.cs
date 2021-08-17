@@ -7,7 +7,5 @@ namespace Altaliza.Domain.Entities
         public string Name { get; set; }
 
         public float Wallet { get; set; }
-
-        public List<CharacterVehicle> Vehicles { get; set; }
     }
 }

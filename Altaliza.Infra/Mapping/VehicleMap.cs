@@ -41,9 +41,6 @@ namespace Altaliza.Infra.Mapping
                 .HasColumnName("Rent15Day");
 
             builder.HasOne(vehicle => vehicle.Category);
-
-            builder.HasMany(vehicle => vehicle.CharactersVehicles)
-                .WithOne(characterVehicle => characterVehicle.Vehicle);
         }
     }
 }
