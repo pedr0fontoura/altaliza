@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using Altaliza.Domain.Enums;
 
-namespace Altaliza.Application.Requests
+namespace Altaliza.Application.Dtos
 {
-    public class RentCharacterVehicleRequest
+    public class RentCharacterVehicleRequestDto
     {
         [Required(ErrorMessage = "O id do personagem é obrigatório")]
         [Range(1, int.MaxValue, ErrorMessage = "O id do personagem deve ser válido")]

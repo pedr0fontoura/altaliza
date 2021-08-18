@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Altaliza.Application.Requests
+namespace Altaliza.Application.Dtos
 {
-    public class UpdateVehicleRequest
+    public class CreateVehicleRequestDto
     {
         [Required(ErrorMessage = "O id da categoria do veículo é obrigatório")]
         [Range(1, int.MaxValue, ErrorMessage = "O id da categoria deve ser válido")]

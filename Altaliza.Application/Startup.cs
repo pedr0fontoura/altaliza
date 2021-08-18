@@ -31,8 +31,9 @@ namespace Altaliza.Application
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddDbContext<MySqlContext>();
 
@@ -48,7 +49,7 @@ namespace Altaliza.Application
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Altaliza.Application", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Altaliza", Version = "v1" });
             });
         }
 
@@ -59,7 +60,7 @@ namespace Altaliza.Application
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Altaliza.Application v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Altaliza v1"));
             }
 
             app.UseHttpsRedirection();

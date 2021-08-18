@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Altaliza.Application.Requests
+namespace Altaliza.Application.Dtos
 {
-    public class CreateVehicleCategoryRequest
+    public class UpdateVehicleCategoryRequestDto
     {
         [Required(ErrorMessage = "O nome da categoria é obrigatório")]
         [MinLength(3, ErrorMessage = "O nome da categoria deve ter entre 3 e 100 caracteres")]

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Altaliza.Domain.Entities;
 using Altaliza.Domain.Services;
 using Altaliza.Domain.Dtos;
-using Altaliza.Application.Requests;
+using Altaliza.Application.Dtos;
 
 namespace Altaliza.Application.Controllers
 {
@@ -21,7 +21,7 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<VehicleCategory>> Post([FromBody] CreateVehicleCategoryRequest request)
+        public async Task<ActionResult<VehicleCategory>> Post([FromBody] CreateVehicleCategoryRequestDto request)
         {
             var dto = new CreateVehicleCategoryDto
             {
@@ -48,7 +48,7 @@ namespace Altaliza.Application.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<ActionResult<VehicleCategory>> Put([FromRoute] int id, [FromBody] UpdateVehicleCategoryRequest request)
+        public async Task<ActionResult<VehicleCategory>> Put([FromRoute] int id, [FromBody] UpdateVehicleCategoryRequestDto request)
         {
             var dto = new UpdateVehicleCategoryDto
             {

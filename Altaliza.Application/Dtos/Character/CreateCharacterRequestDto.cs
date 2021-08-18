@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Altaliza.Domain.Dtos
+namespace Altaliza.Application.Dtos
 {
-    public class CreateCharacterRequest
+    public class CreateCharacterRequestDto
     {
         [Required(ErrorMessage = "O nome do personagem é obrigatório.")]
         [MinLength(0, ErrorMessage = "O nome do personagem não deve ser vazio.")]

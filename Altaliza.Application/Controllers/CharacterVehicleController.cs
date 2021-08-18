@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Altaliza.Domain.Entities;
 using Altaliza.Domain.Services;
 using Altaliza.Domain.Dtos;
-using Altaliza.Application.Requests;
+using Altaliza.Application.Dtos;
 using Altaliza.Application.ViewModels;
 
 namespace Altaliza.Application.Controllers
@@ -22,7 +22,7 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("characters/vehicles")]
-        public async Task<ActionResult<CharacterVehicleViewModel>> Post([FromBody] RentCharacterVehicleRequest request)
+        public async Task<ActionResult<CharacterVehicleResponseDto>> Post([FromBody] RentCharacterVehicleRequestDto request)
         {
             var dto = new RentCharacterVehicleDto
             {
@@ -33,12 +33,13 @@ namespace Altaliza.Application.Controllers
 
             CharacterVehicle characterVehicle = await _characterVehicleService.RentCharacterVehicle(dto);
 
-            return new CharacterVehicleViewModel
+            return new CharacterVehicleResponseDto
             {
                 Id = characterVehicle.Id,
                 Vehicle = characterVehicle.Vehicle,
                 ExpirationDate = characterVehicle.ExpirationDate
             };
+
         }
 
         [HttpGet]
@@ -72,7 +73,7 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("characters/{characterId:int}/vehicles/{characterVehicleId:int}/renew")]
-        public async Task<CharacterVehicleViewModel> Renew([FromRoute] int characterId, [FromRoute] int characterVehicleId, [FromBody] RenewCharacterVehicleRequest request)
+        public async Task<CharacterVehicleViewModel> Renew([FromRoute] int characterId, [FromRoute] int characterVehicleId, [FromBody] RenewCharacterVehicleRequestDto request)
         {
             var dto = new RenewCharacterVehicleDto
             {
