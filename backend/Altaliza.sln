@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Altaliza.Application", "Altaliza.Application", "{8017834E-9AD3-4677-AC12-3C3D3D315F68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Altaliza.Domain", "Altaliza.Domain", "{9926964C-FF07-4495-9B61-014ED009CCEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Altaliza.Infra", "Altaliza.Infra", "{F5ED095C-1B4E-4BCB-AB36-EFD9EA48A348}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Application", "Altaliza.Application\Altaliza.Application.csproj", "{105E9117-91BB-41B7-B0C9-21901AFDA8B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Domain", "Altaliza.Domain\Altaliza.Domain.csproj", "{EFB9F529-01CB-404B-B4B4-C250F6D76E94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altaliza.Infra", "Altaliza.Infra\Altaliza.Infra.csproj", "{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{105E9117-91BB-41B7-B0C9-21901AFDA8B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105E9117-91BB-41B7-B0C9-21901AFDA8B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105E9117-91BB-41B7-B0C9-21901AFDA8B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105E9117-91BB-41B7-B0C9-21901AFDA8B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFB9F529-01CB-404B-B4B4-C250F6D76E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFB9F529-01CB-404B-B4B4-C250F6D76E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFB9F529-01CB-404B-B4B4-C250F6D76E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFB9F529-01CB-404B-B4B4-C250F6D76E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{105E9117-91BB-41B7-B0C9-21901AFDA8B9} = {8017834E-9AD3-4677-AC12-3C3D3D315F68}
+		{EFB9F529-01CB-404B-B4B4-C250F6D76E94} = {9926964C-FF07-4495-9B61-014ED009CCEA}
+		{B00FC8FA-6D94-4D08-BCEB-9F4503CD4E66} = {F5ED095C-1B4E-4BCB-AB36-EFD9EA48A348}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {283A3388-75B5-4359-A7EA-4C09C9FBD06C}
+	EndGlobalSection
+EndGlobal
