@@ -5,14 +5,21 @@ export const Container = styled.div`
 
   border-radius: 0.25rem;
 
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-
   overflow: hidden;
 
   img {
     height: 100%;
     width: 100%;
   }
+`;
+
+export const ChildrenContainer = styled.div`
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
 `;
 
 export const Fade = styled.div`

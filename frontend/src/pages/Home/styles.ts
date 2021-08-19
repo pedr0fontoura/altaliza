@@ -27,3 +27,20 @@ export const Container = styled.div`
 
   animation: ${fadeIn} 2s;
 `;
+
+export const Section = styled.section`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  & + section {
+    margin-top: 2rem;
+  }
+`;
+
+export const SectionTitle = styled.h1`
+  font-size: 2rem;
+`;

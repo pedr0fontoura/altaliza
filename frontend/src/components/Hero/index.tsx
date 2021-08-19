@@ -2,7 +2,7 @@ import vectre from '../../assets/vectre.png';
 
 import { Container, Content, Title, Subtitle, Text, Image, Button } from './styles';
 
-const HeroSection = () => {
+const Hero = () => {
   return (
     <Container>
       <Content>
@@ -26,4 +26,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default Hero;

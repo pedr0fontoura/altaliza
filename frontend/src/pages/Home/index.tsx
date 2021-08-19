@@ -1,10 +1,17 @@
-import { Container } from './styles';
+import { Container, Section, SectionTitle } from './styles';
 
-import HeroSection from '../../components/HeroSection';
+import Hero from '../../components/Hero';
+import VehicleList from '../../components/VehicleList';
 
 const Home = () => (
   <Container>
-    <HeroSection />
+    <Section>
+      <Hero />
+    </Section>
+    <Section>
+      <SectionTitle>Veículos</SectionTitle>
+      <VehicleList />
+    </Section>
   </Container>
 );
 
