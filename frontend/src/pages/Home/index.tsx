@@ -1,8 +1,10 @@
 import { Container } from './styles';
 
+import HeroSection from '../../components/HeroSection';
+
 const Home = () => (
   <Container>
-    <h1>Home</h1>
+    <HeroSection />
   </Container>
 );
 

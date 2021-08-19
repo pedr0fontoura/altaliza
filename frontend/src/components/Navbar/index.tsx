@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import logo from '../../assets/Altaliza.png';
+import logo from '../../assets/altaliza.png';
 
 import NavbarProfile from '../NavbarProfile';
 
