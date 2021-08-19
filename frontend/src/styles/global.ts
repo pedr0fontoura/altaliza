@@ -8,8 +8,17 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    font-size: 16px;
+    color: #FFF;
+  }
+
+  html, body {
+    height: 100vh;
+    width: 100vw;
+  }
+
   body {
     background: #00974A;
-    color: #FFF;
   }
 `;

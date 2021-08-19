@@ -1,10 +1,8 @@
-import logo from '../../assets/Altaliza.png';
-
 import { Container } from './styles';
 
 const Home = () => (
   <Container>
-    <img src={logo} alt="Altaliza" />
+    <h1>Home</h1>
   </Container>
 );
 

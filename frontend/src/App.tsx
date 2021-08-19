@@ -2,6 +2,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import GlobalStyles from './styles/global';
 
+import Navbar from './components/Navbar';
+
 import Routes from './routes';
 
 function App() {
@@ -9,6 +11,7 @@ function App() {
     <>
       <GlobalStyles />
       <BrowserRouter>
+        <Navbar />
         <Routes />
       </BrowserRouter>
     </>
