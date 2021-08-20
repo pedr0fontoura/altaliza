@@ -15,6 +15,7 @@ using Altaliza.Domain.Repositories;
 using Altaliza.Domain.Services;
 using Altaliza.Infra.Context;
 using Altaliza.Infra.Repositories;
+using Altaliza.Application.Dtos;
 
 namespace Altaliza.Application
 {
@@ -30,7 +31,24 @@ namespace Altaliza.Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = (context) =>
+                    {
+                        var response = new ApiResponseDto<object>
+                        {
+                            Type = "error",
+                            Status = 400,
+                            Errors = context.ModelState
+                                .Where(e => e.Value.Errors.Count > 0)
+                                .ToDictionary(kvp => kvp.Key.ToLower(), kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList())
+                        };
+
+                        return new BadRequestObjectResult(response);
+                    };
+                });
 
             services.AddDbContext<MySqlContext>();
 

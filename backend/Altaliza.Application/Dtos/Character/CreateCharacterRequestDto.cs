@@ -9,7 +9,6 @@ namespace Altaliza.Application.Dtos
         [MaxLength(50, ErrorMessage = "O nome do personagem deve ter no máximo 50 caracteres.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "O valor da carteira do personagem é obrigatório.")]
         [Range(0, float.MaxValue, ErrorMessage = "O valor da carteira não deve ser negativo.")]
         public float Wallet { get; set; }
     }

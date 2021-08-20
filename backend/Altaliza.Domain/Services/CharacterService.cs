@@ -15,21 +15,29 @@ namespace Altaliza.Domain.Services
             _characterRepository = characterRepository;
         }
 
-        public async Task<Character> CreateCharacter(CreateCharacterDto data)
+        public async Task<DomainResponseDto<Character>> CreateCharacter(CreateCharacterDto data)
         {
+            var response = new DomainResponseDto<Character>();
+
             var character = await _characterRepository.Create(new Character{
                 Name = data.Name,
                 Wallet = data.Wallet,
             });
 
-            return character;
+            response.Data = character;
+
+            return response;
         }
 
-        public async Task<List<Character>> ListAllCharacters()
+        public async Task<DomainResponseDto<List<Character>>> ListCharacters()
         {
+            var response = new DomainResponseDto<List<Character>>();
+
             var characters = await _characterRepository.FindAll();
 
-            return characters;
+            response.Data = characters;
+
+            return response;
         }
     }
 }

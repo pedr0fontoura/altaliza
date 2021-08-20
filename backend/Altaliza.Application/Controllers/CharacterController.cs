@@ -21,22 +21,50 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Character>> Post([FromBody] CreateCharacterRequestDto request)
+        public async Task<ActionResult<ApiResponseDto<Character>>> Post([FromBody] CreateCharacterRequestDto request)
         {
+            var response = new ApiResponseDto<Character>();
+
             var dto = new CreateCharacterDto
             {
                 Name = request.Name,
                 Wallet = request.Wallet,
             };
 
-            return await _characterService.CreateCharacter(dto);
+            var domainResponse = await _characterService.CreateCharacter(dto);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+
+                return response;
+            }
+
+            response.Data = domainResponse.Data;
+
+            return response;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Character>>> Get()
+        public async Task<ActionResult<ApiResponseDto<List<Character>>>> Get()
         {
-            return await _characterService.ListAllCharacters();
+            var response = new ApiResponseDto<List<Character>>();
+
+            var domainResponse = await _characterService.ListCharacters();
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+
+                return response;
+            }
+
+            response.Data = domainResponse.Data;
+
+            return response;
         }
     }
 }
