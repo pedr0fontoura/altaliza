@@ -21,15 +21,14 @@ namespace Altaliza.Domain.Services
             _vehicleRepository = vehicleRepository;
         }
 
-        public async Task<CharacterVehicle> RentCharacterVehicle(RentCharacterVehicleDto data)
+        public async Task<DomainResponseDto<CharacterVehicle>> RentCharacterVehicle(RentCharacterVehicleDto data)
         {
-            Character character = await _characterRepository.FindById(data.CharacterId);
+            var response = new DomainResponseDto<CharacterVehicle>();
 
+            Character character = await _characterRepository.FindById(data.CharacterId);
             Vehicle vehicle = await _vehicleRepository.FindById(data.VehicleId);
 
-            bool isVehicleAvailable = vehicle.Stock > 0;
-            
-            float rentPrice;
+            float? rentPrice = null;
             DateTime expirationDate = DateTime.Now;
 
             switch (data.RentTime)
@@ -46,91 +45,107 @@ namespace Altaliza.Domain.Services
                     rentPrice = vehicle.Rent15Day;
                     expirationDate = expirationDate.AddDays(15);
                     break;
-                default:
-                    throw new Exception("Tempo de aluguel inválido");
             }
 
-            if (isVehicleAvailable)
+            if (character == null)
             {
+                response.AddError("characterId", "Personagem não encontrado");
+            }
+
+            if (vehicle == null)
+            {
+                response.AddError("vehicleId", "Veículo não encontrado");
+            }
+
+            if (rentPrice == null)
+            {
+                response.AddError("rentTime", "Tempo de aluguel inválido");
+            }
+
+            if (rentPrice != null && character != null && rentPrice >= character.Wallet)
+            {
+                response.AddError("characterId", "O personagem não tem dinheiro suficiente para alugar o veículo");
+
+            }
+
+            if (vehicle != null && vehicle.Stock <= 0)
+            {
+                response.AddError("vehicleId", "O veículo não está disponível para aluguel");
+            }
+
+            if (!response.HasErrors())
+            {
+                character.Wallet -= (float)rentPrice;
                 vehicle.Stock -= 1;
-            } else
-            {
-                throw new Exception("O veículo não está disponível para aluguel");
+
+                await _characterRepository.Update(character);
+                await _vehicleRepository.Update(vehicle);
+
+                CharacterVehicle characterVehicle = await _characterVehicleRepository.Create(new CharacterVehicle
+                {
+                    Character = character,
+                    Vehicle = vehicle,
+                    ExpirationDate = expirationDate,
+                });
+
+                response.Data = characterVehicle;
             }
 
-            if (rentPrice <= character.Wallet)
-            {
-                character.Wallet -= rentPrice;
-            } else
-            {
-                throw new Exception("O personagem não tem dinheiro suficiente para alugar o veículo");
-            }
-
-            await _characterRepository.Update(character);
-            await _vehicleRepository.Update(vehicle);
-
-            CharacterVehicle characterVehicle = await _characterVehicleRepository.Create(new CharacterVehicle
-            {
-                Character = character,
-                Vehicle = vehicle,
-                ExpirationDate = expirationDate,
-            });
-
-            return characterVehicle;
+            return response;
         }
 
-        public async Task<List<CharacterVehicle>> ListCharacterVehiclesRentedByCharacter(int id)
+        public async Task<DomainResponseDto<List<CharacterVehicle>>> ListCharacterVehiclesRentedByCharacter(int id)
         {
-            Character character = await _characterRepository.FindById(id);
+            var response = new DomainResponseDto<List<CharacterVehicle>>();
+
+            var character = await _characterRepository.FindById(id);
 
             if (character == null)
             {
-                throw new Exception("Personagem não encontrado");
+                response.AddError("characterId", "Personagem não encontrado");
             }
 
-            return await _characterVehicleRepository.FindByCharacterId(id);
+            if (!response.HasErrors())
+            {
+                response.Data = await _characterVehicleRepository.FindByCharacterId(id);
+            }
+
+            return response;
         }
 
-        public async Task ReturnCharacterVehicle(ReturnCharacterVehicleDto data)
+        public async Task<DomainResponseDto<object>> ReturnCharacterVehicle(ReturnCharacterVehicleDto data)
         {
-            CharacterVehicle characterVehicle = await _characterVehicleRepository.FindById(data.CharacterVehicleId);
+            var response = new DomainResponseDto<object>();
+
+            var characterVehicle = await _characterVehicleRepository.FindById(data.CharacterVehicleId);
 
             if (characterVehicle == null)
             {
-                throw new Exception("Veículo de personagem não encontrado");
+                response.AddError("characterVehicleId", "Veículo de personagem não encontrado");
             }
 
-            if (characterVehicle.Character.Id != data.CharacterId)
+            if (characterVehicle == null && characterVehicle.Character.Id != data.CharacterId)
             {
-                throw new Exception("O id do personagem não bate com o locatário do veículo.");
+                response.AddError("characterId", "O id do personagem não bate com o locatário do veículo.");
             }
 
-            await _characterVehicleRepository.Delete(data.CharacterVehicleId);
+            if (!response.HasErrors())
+            {
+                await _characterVehicleRepository.Delete(data.CharacterVehicleId);
+            }
+
+            return response;
         }
 
-        public async Task<CharacterVehicle> RenewCharacterVehicle(RenewCharacterVehicleDto data)
+        public async Task<DomainResponseDto<CharacterVehicle>> RenewCharacterVehicle(RenewCharacterVehicleDto data)
         {
-            CharacterVehicle characterVehicle = await _characterVehicleRepository.FindById(data.CharacterVehicleId);
+            var response = new DomainResponseDto<CharacterVehicle>();
 
-            if (characterVehicle == null)
-            {
-                throw new Exception("Veículo de personagem não encontrado");
-            }
+            var characterVehicle = await _characterVehicleRepository.FindById(data.CharacterVehicleId);
+            var character = await _characterRepository.FindById(data.CharacterId);
 
-            if (characterVehicle.Character.Id != data.CharacterId)
-            {
-                throw new Exception("O id do personagem não bate com o locatário do veículo.");
-            }
-
-            Character character = await _characterRepository.FindById(data.CharacterId);
-
-            if (character == null)
-            {
-                throw new Exception("Personagem não encontrado");
-            }
-
-            float rentPrice;
-            DateTime expirationDate = characterVehicle.ExpirationDate;
+            float? rentPrice = null;
+            DateTime expirationDate = DateTime.Now;
 
             switch (data.RentTime)
             {
@@ -146,25 +161,44 @@ namespace Altaliza.Domain.Services
                     rentPrice = characterVehicle.Vehicle.Rent15Day;
                     expirationDate = expirationDate.AddDays(15);
                     break;
-                default:
-                    throw new Exception("Tempo de aluguel inválido");
             }
 
-            if (rentPrice <= character.Wallet)
+            if (characterVehicle == null)
             {
-                character.Wallet -= rentPrice;
+                response.AddError("characterVehicleId", "Veículo de personagem não encontrado");
             }
-            else
+
+            if (character == null)
             {
-                throw new Exception("O personagem não tem dinheiro suficiente para renovar o aluguel do veículo");
+                response.AddError("characterId", "Personagem não encontrado");
+            }
+            else if (characterVehicle != null && characterVehicle.Character.Id != data.CharacterId)
+            {
+                response.AddError("characterId", "O id do personagem não bate com o locatário do veículo.");
             }
 
-            characterVehicle.ExpirationDate = expirationDate;
+            if (rentPrice == null)
+            {
+                response.AddError("rentTime", "Tempo de aluguel inválido");
+            }
 
-            await _characterRepository.Update(character);
-            await _characterVehicleRepository.Update(characterVehicle);
+            if (rentPrice != null && character != null && rentPrice >= character.Wallet)
+            {
+                response.AddError("characterId", "O personagem não tem dinheiro suficiente para alugar o veículo");
+            }
 
-            return characterVehicle;
+            if (!response.HasErrors())
+            {
+                character.Wallet -= (float)rentPrice;
+                characterVehicle.ExpirationDate = expirationDate;
+
+                await _characterRepository.Update(character);
+                await _characterVehicleRepository.Update(characterVehicle);
+
+                response.Data = characterVehicle;
+            }
+
+            return response;
         }
     }
 }

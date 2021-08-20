@@ -2,11 +2,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Altaliza.Domain.Entities;
 using Altaliza.Domain.Services;
 using Altaliza.Domain.Dtos;
 using Altaliza.Application.Dtos;
-using Altaliza.Application.ViewModels;
 
 namespace Altaliza.Application.Controllers
 {
@@ -22,8 +20,10 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("characters/vehicles")]
-        public async Task<ActionResult<CharacterVehicleResponseDto>> Post([FromBody] RentCharacterVehicleRequestDto request)
+        public async Task<ActionResult<ApiResponseDto<RentCharacterVehicleResponse>>> Post([FromBody] RentCharacterVehicleRequest request)
         {
+            var response = new ApiResponseDto<RentCharacterVehicleResponse>();
+
             var dto = new RentCharacterVehicleDto
             {
                 CharacterId = request.CharacterId,
@@ -31,50 +31,92 @@ namespace Altaliza.Application.Controllers
                 RentTime = request.RentTime
             };
 
-            CharacterVehicle characterVehicle = await _characterVehicleService.RentCharacterVehicle(dto);
+            var domainResponse = await _characterVehicleService.RentCharacterVehicle(dto);
 
-            return new CharacterVehicleResponseDto
+            if (domainResponse.HasErrors())
             {
-                Id = characterVehicle.Id,
-                Vehicle = characterVehicle.Vehicle,
-                ExpirationDate = characterVehicle.ExpirationDate
-            };
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
 
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = new RentCharacterVehicleResponse
+                {
+                    Id = domainResponse.Data.Id,
+                    Vehicle = domainResponse.Data.Vehicle,
+                    ExpirationDate = domainResponse.Data.ExpirationDate
+                };
+
+                return response;
+            }
         }
 
         [HttpGet]
         [Route("characters/{characterId:int}/vehicles")]
-        public async Task<ActionResult<List<CharacterVehicleViewModel>>> GetByCharacterId([FromRoute] int characterId)
+        public async Task<ActionResult<ApiResponseDto<List<ListCharacterRentedVehiclesResponse>>>> GetByCharacterId([FromRoute] int characterId)
         {
-            List<CharacterVehicle> characterVehicles = await _characterVehicleService.ListCharacterVehiclesRentedByCharacter(characterId);
+            var response = new ApiResponseDto<List<ListCharacterRentedVehiclesResponse>>();
 
-            List<CharacterVehicleViewModel> viewModels = characterVehicles.Select(characterVehicle => new CharacterVehicleViewModel
+            var domainResponse = await _characterVehicleService.ListCharacterVehiclesRentedByCharacter(characterId);
+
+            if (domainResponse.HasErrors())
             {
-                Id = characterVehicle.Id,
-                Vehicle = characterVehicle.Vehicle,
-                ExpirationDate = characterVehicle.ExpirationDate,
-            }).ToList();
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
 
-            return viewModels;
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data.Select(characterVehicle => new ListCharacterRentedVehiclesResponse
+                {
+                    Id = characterVehicle.Id,
+                    Vehicle = characterVehicle.Vehicle,
+                    ExpirationDate = characterVehicle.ExpirationDate,
+                }).ToList();
+
+                return response;
+            }
         }
 
         [HttpDelete]
         [Route("characters/{characterId:int}/vehicles/{characterVehicleId:int}")]
-        public async Task Delete([FromRoute] int characterId, [FromRoute] int characterVehicleId)
+        public async Task<ActionResult> Delete([FromRoute] int characterId, [FromRoute] int characterVehicleId)
         {
+            var response = new ApiResponseDto<object>();
+
             var dto = new ReturnCharacterVehicleDto
             {
                 CharacterId = characterId,
                 CharacterVehicleId = characterVehicleId,
             };
 
-            await _characterVehicleService.ReturnCharacterVehicle(dto);
+            var domainResponse = await _characterVehicleService.ReturnCharacterVehicle(dto);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                return Ok(response);
+            }
         }
 
         [HttpPost]
         [Route("characters/{characterId:int}/vehicles/{characterVehicleId:int}/renew")]
-        public async Task<CharacterVehicleViewModel> Renew([FromRoute] int characterId, [FromRoute] int characterVehicleId, [FromBody] RenewCharacterVehicleRequestDto request)
+        public async Task<ActionResult<ApiResponseDto<RenewCharacterVehicleResponse>>> Renew([FromRoute] int characterId, [FromRoute] int characterVehicleId, [FromBody] RenewCharacterVehicleRequest request)
         {
+            var response = new ApiResponseDto<RenewCharacterVehicleResponse>();
+
             var dto = new RenewCharacterVehicleDto
             {
                 CharacterId = characterId,
@@ -82,14 +124,27 @@ namespace Altaliza.Application.Controllers
                 RentTime = request.RentTime,
             };
 
-            CharacterVehicle characterVehicle = await _characterVehicleService.RenewCharacterVehicle(dto);
+            var domainResponse = await _characterVehicleService.RenewCharacterVehicle(dto);
 
-            return new CharacterVehicleViewModel
+            if (domainResponse.HasErrors())
             {
-                Id = characterVehicle.Id,
-                Vehicle = characterVehicle.Vehicle,
-                ExpirationDate = characterVehicle.ExpirationDate,
-            };
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = new RenewCharacterVehicleResponse
+                {
+                    Id = domainResponse.Data.Id,
+                    Vehicle = domainResponse.Data.Vehicle,
+                    ExpirationDate = domainResponse.Data.ExpirationDate,
+                };
+
+                return Ok(response);
+            }
         }
     }
 }

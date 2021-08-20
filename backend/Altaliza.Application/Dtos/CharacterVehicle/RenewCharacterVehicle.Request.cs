@@ -3,7 +3,7 @@ using Altaliza.Domain.Enums;
 
 namespace Altaliza.Application.Dtos
 {
-    public class RenewCharacterVehicleRequestDto
+    public class RenewCharacterVehicleRequest
     {
         [Required(ErrorMessage = "O tempo de aluguel é obrigatório")]
         public RentTime RentTime { get; set; }

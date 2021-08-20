@@ -18,7 +18,7 @@ namespace Altaliza.Domain.Entities
             return !(Errors.Count() == 0);
         }
 
-        public void AddError(string key, string error)
+        public DomainResponseDto<T> AddError(string key, string error)
         {
             if (Errors.ContainsKey(key))
             {
@@ -32,11 +32,15 @@ namespace Altaliza.Domain.Entities
 
                 Errors.Add(key, errorList);
             }
+
+            return this;
         }
 
-        public void AddErrors(string key, List<string> errorList)
+        public DomainResponseDto<T> AddErrors(string key, List<string> errorList)
         {
             Errors.Add(key, errorList);
+
+            return this;
         }
     }
 }
