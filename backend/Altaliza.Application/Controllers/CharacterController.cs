@@ -28,7 +28,7 @@ namespace Altaliza.Application.Controllers
             var dto = new CreateCharacterDto
             {
                 Name = request.Name,
-                Wallet = request.Wallet,
+                Wallet = (float) request.Wallet,
             };
 
             var domainResponse = await _characterService.CreateCharacter(dto);
