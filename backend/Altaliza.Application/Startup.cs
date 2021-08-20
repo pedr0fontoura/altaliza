@@ -33,7 +33,11 @@ namespace Altaliza.Application
         {
             services
                 .AddControllers()
-                .AddJsonOptions(options => { options.JsonSerializerOptions.IgnoreNullValues = true; })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                })
                 .ConfigureApiBehaviorOptions(options =>
                 {
                     options.InvalidModelStateResponseFactory = (context) =>

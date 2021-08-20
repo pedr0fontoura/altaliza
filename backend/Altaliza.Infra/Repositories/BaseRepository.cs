@@ -30,7 +30,9 @@ namespace Altaliza.Infra.Repositories
 
         public virtual async Task<TEntity> FindById(int id)
         {
-            return await _set.FindAsync(id);
+            IQueryable<TEntity> query = _set;
+
+            return await query.FirstAsync(entity => entity.Id == id);
         }
 
         public virtual async Task<List<TEntity>> FindAll()

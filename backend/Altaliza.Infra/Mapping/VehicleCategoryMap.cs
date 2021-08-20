@@ -23,6 +23,9 @@ namespace Altaliza.Infra.Mapping
                 .IsRequired()
                 .HasColumnName("Description")
                 .HasColumnType("varchar(500)");
+
+            builder.HasMany(vehicleCategory => vehicleCategory.Vehicles)
+                .WithOne(vehicle => vehicle.Category);
         }
     }
 }
