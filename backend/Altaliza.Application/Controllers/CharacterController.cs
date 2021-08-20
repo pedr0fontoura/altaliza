@@ -37,13 +37,16 @@ namespace Altaliza.Application.Controllers
             {
                 response.Type = "error";
                 response.Errors = domainResponse.Errors;
+                response.Status = 400;
 
-                return response;
+                return BadRequest(response);
             }
+            else
+            {
+                response.Data = domainResponse.Data;
 
-            response.Data = domainResponse.Data;
-
-            return response;
+                return Ok(response);
+            }
         }
 
         [HttpGet]
@@ -58,13 +61,16 @@ namespace Altaliza.Application.Controllers
             {
                 response.Type = "error";
                 response.Errors = domainResponse.Errors;
+                response.Status = 400;
 
-                return response;
+                return BadRequest(response);
             }
+            else
+            {
+                response.Data = domainResponse.Data;
 
-            response.Data = domainResponse.Data;
-
-            return response;
+                return Ok(response);
+            }
         }
     }
 }
