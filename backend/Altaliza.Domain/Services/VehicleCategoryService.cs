@@ -16,45 +16,72 @@ namespace Altaliza.Domain.Services
             _vehicleCategoryRepository = vehicleCategoryRepository;
         }
 
-        public async Task<VehicleCategory> CreateVehicleCategory(CreateVehicleCategoryDto data)
+        public async Task<DomainResponseDto<VehicleCategory>> CreateVehicleCategory(CreateVehicleCategoryDto data)
         {
+            var response = new DomainResponseDto<VehicleCategory>();
+
             var vehicleCategory = await _vehicleCategoryRepository.Create(new VehicleCategory
             {
                 Name = data.Name,
                 Description = data.Description,
             });
 
-            return vehicleCategory;
+            response.Data = vehicleCategory;
+
+            return response;
         }
 
-        public async Task<List<VehicleCategory>> ListAllVehicleCategories()
+        public async Task<DomainResponseDto<List<VehicleCategory>>> ListAllVehicleCategories()
         {
-            return await _vehicleCategoryRepository.FindAll();
+            var response = new DomainResponseDto<List<VehicleCategory>>()
+            {
+                Data = await _vehicleCategoryRepository.FindAll(),
+            };
+
+            return response;
         }
 
-        public async Task<VehicleCategory> ShowVehicleCategory(int id)
+        public async Task<DomainResponseDto<VehicleCategory>> ShowVehicleCategory(int id)
         {
-            return await _vehicleCategoryRepository.FindById(id);
+            var response = new DomainResponseDto<VehicleCategory>()
+            {
+                Data = await _vehicleCategoryRepository.FindById(id),
+            };
+
+            return response;
         }
 
-        public async Task<VehicleCategory> UpdateVehicleCategory(UpdateVehicleCategoryDto data)
+        public async Task<DomainResponseDto<VehicleCategory>> UpdateVehicleCategory(UpdateVehicleCategoryDto data)
         {
+            var response = new DomainResponseDto<VehicleCategory>();
+
             var vehicleCategory = await _vehicleCategoryRepository.FindById(data.Id);
 
             if (vehicleCategory == null)
             {
-                throw new Exception("A categoria não foi encontrada");
+                response.AddError("vehicleCategoryId", "A categoria não foi encontrada");
             }
 
-            vehicleCategory.Name = data.Name;
-            vehicleCategory.Description = data.Description;
+            if (!response.HasErrors())
+            {
+                vehicleCategory.Name = data.Name;
+                vehicleCategory.Description = data.Description;
 
-            return await _vehicleCategoryRepository.Update(vehicleCategory);
+                response.Data = await _vehicleCategoryRepository.Update(vehicleCategory);
+            }
+
+
+
+            return response;
         }
 
-        public async Task DeleteVehicleCategory(DeleteVehicleCategoryDto data)
+        public async Task<DomainResponseDto<object>> DeleteVehicleCategory(DeleteVehicleCategoryDto data)
         {
+            var response = new DomainResponseDto<object>();
+
             await _vehicleCategoryRepository.Delete(data.Id);
+
+            return response;
         }
     }
 }
