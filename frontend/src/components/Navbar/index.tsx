@@ -13,7 +13,7 @@ const Navbar = () => {
     <Container>
       <Logo src={logo} alt="Altaliza" />
       <Menu>
-        <StyledLink to="/" active={pathname === '/'}>
+        <StyledLink to="/" $active={pathname === '/'}>
           Início
         </StyledLink>
         <StyledLink to="/#">Veículos</StyledLink>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BREAKPOINTS } from '../../styles/constants';
 
 interface IStyledLinkProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 export const Container = styled.nav`
@@ -49,10 +49,10 @@ export const StyledLink = styled(Link)<IStyledLinkProps>`
 
   font-size: 1rem;
   font-weight: 500;
-  color: ${({ active }) => (active ? '#fff' : '#dee1e6')};
+  color: ${({ $active }) => ($active ? '#fff' : '#dee1e6')};
   text-decoration: none;
 
-  background: ${({ active }) => (active ? 'rgba(0, 0, 0, 0.3)' : 'none')};
+  background: ${({ $active }) => ($active ? 'rgba(0, 0, 0, 0.3)' : 'none')};
 
   &:hover {
     background: rgba(0, 0, 0, 0.3);

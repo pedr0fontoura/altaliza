@@ -1,22 +1,28 @@
 import { FaCar } from 'react-icons/fa';
 
-import vectre from '../../assets/vectre.png';
-
 import FadedImage from '../FadedImage';
 
-import { Container, Name, Category, Button, Stock } from './styles';
+import { Container, Name, Category, StyledLink, Stock } from './styles';
 
-const VehicleCard = () => (
+interface IVehicleCardProps {
+  id: number;
+  name: string;
+  image: string;
+  category: string;
+  stock: number;
+}
+
+const VehicleCard = ({ id, name, image, category, stock }: IVehicleCardProps) => (
   <Container>
-    <FadedImage src={vectre} alt="Emperor Vectre">
+    <FadedImage src={image} alt={name}>
       <Stock>
-        30
+        {stock}
         <FaCar />
       </Stock>
     </FadedImage>
-    <Name>Emperor Vectre</Name>
-    <Category>Esporte</Category>
-    <Button>Alugar</Button>
+    <Name>{name}</Name>
+    <Category>{category}</Category>
+    <StyledLink to={`vehicles/${id}`}>Alugar</StyledLink>
   </Container>
 );
 

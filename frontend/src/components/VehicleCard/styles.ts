@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 25%;
@@ -35,10 +36,13 @@ export const Category = styled.p`
   font-size: 1rem;
 `;
 
-export const Button = styled.button`
+export const StyledLink = styled(Link)`
   width: 100%;
-
   height: 2.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   margin-top: 2rem;
 
@@ -48,6 +52,7 @@ export const Button = styled.button`
   color: rgb(1, 105, 52, 0.9);
   font-weight: 600;
   font-size: 1.05rem;
+  text-decoration: none;
 
   outline: none;
 
