@@ -70,8 +70,6 @@ namespace Altaliza.Domain.Services
                 response.Data = await _vehicleCategoryRepository.Update(vehicleCategory);
             }
 
-
-
             return response;
         }
 

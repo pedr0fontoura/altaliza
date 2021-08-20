@@ -21,8 +21,10 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Vehicle>> Post([FromBody] CreateVehicleRequestDto request)
+        public async Task<ActionResult<ApiResponseDto<Vehicle>>> Post([FromBody] CreateVehicleRequestDto request)
         {
+            var response = new ApiResponseDto<Vehicle>();
+
             var dto = new CreateVehicleDto
             {
                 CategoryId = request.CategoryId,
@@ -34,27 +36,78 @@ namespace Altaliza.Application.Controllers
                 Rent15Day = request.Rent15Day,
             };
 
-            return await _vehicleService.CreateVehicle(dto);
+            var domainResponse = await _vehicleService.CreateVehicle(dto);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data;
+
+                return Ok(response);
+            }
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Vehicle>>> Get()
+        public async Task<ActionResult<ApiResponseDto<List<Vehicle>>>> Get()
         {
-            return await _vehicleService.ListAllVehicles();
+            var response = new ApiResponseDto<List<Vehicle>>();
+
+            var domainResponse = await _vehicleService.ListAllVehicles();
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data;
+
+                return Ok(response);
+            }
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Vehicle>> GetById([FromRoute] int id)
+        public async Task<ActionResult<ApiResponseDto<Vehicle>>> GetById([FromRoute] int id)
         {
-            return await _vehicleService.ShowVehicle(id);
+            var response = new ApiResponseDto<Vehicle>();
+
+            var domainResponse = await _vehicleService.ShowVehicle(id);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data;
+
+                return Ok(response);
+            }
         }
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<ActionResult<Vehicle>> Put([FromRoute] int id, [FromBody] UpdateVehicleRequestDto request)
+        public async Task<ActionResult<ApiResponseDto<Vehicle>>> Put([FromRoute] int id, [FromBody] UpdateVehicleRequestDto request)
         {
+            var response = new ApiResponseDto<Vehicle>();
+
             var dto = new UpdateVehicleDto
             {
                 Id = id,
@@ -67,14 +120,44 @@ namespace Altaliza.Application.Controllers
                 Rent15Day = request.Rent15Day,
             };
 
-            return await _vehicleService.UpdateVehicle(dto);
+            var domainResponse = await _vehicleService.UpdateVehicle(dto);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data;
+
+                return Ok(response);
+            }
         }
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task Delete([FromRoute] int id)
+        public async Task<ActionResult<ApiResponseDto<object>>> Delete([FromRoute] int id)
         {
-            await _vehicleService.DeleteVehicle(id);
+            var response = new ApiResponseDto<object>();
+
+            var domainResponse = await _vehicleService.DeleteVehicle(id);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                return Ok(response);
+            }
         }
     }
 }
