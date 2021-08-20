@@ -13,12 +13,6 @@ export default createGlobalStyle`
     color: #FFF;
   }
 
-  html, body {
-    height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
-  }
-
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -27,5 +21,10 @@ export default createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
     background: #00974A;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
   }
 `;
