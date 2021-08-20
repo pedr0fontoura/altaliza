@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Altaliza.Domain.Entities;
 using Altaliza.Domain.Services;
 using Altaliza.Domain.Dtos;
+using Altaliza.Application.Dtos;
 
 namespace Altaliza.Application.Controllers
 {
@@ -20,7 +21,7 @@ namespace Altaliza.Application.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Character>> Post([FromBody] CreateCharacterRequest request)
+        public async Task<ActionResult<Character>> Post([FromBody] CreateCharacterRequestDto request)
         {
             var dto = new CreateCharacterDto
             {
