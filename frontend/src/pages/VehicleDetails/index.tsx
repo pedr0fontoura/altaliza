@@ -1,6 +1,11 @@
-import { FaCheck } from 'react-icons/fa';
+import { useState, useCallback, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
-import vectre from '../../assets/vectre.png';
+import { ApiResponse, IVehicle } from '../../types';
+
+import api, { rentCharacterVehicle } from '../../lib/api';
+import formatValue from '../../utils/formatValue';
 
 import OptionsPicker, { IOption } from '../../components/OptionsPicker';
 
@@ -17,57 +22,117 @@ import {
   Button,
 } from './styles';
 
+interface IRouteParams {
+  id: string;
+}
+
+const IN_STOCK = 'Em estoque e pronto para entrega!';
+
+const OUT_OF_STOCK = 'Infelizmente o veículo não está disponível';
+
+const RENT_TIME_MAP = {
+  rent1Day: 0,
+  rent7Day: 1,
+  rent15Day: 2,
+};
+
 const RENT_TIME_OPTIONS: IOption[] = [
   {
-    id: 'Rent1Day',
+    id: 'rent1Day',
     text: '1 Dia',
     description: 'Só para experimentar',
   },
   {
-    id: 'Rent7Day',
+    id: 'rent7Day',
     text: '7 Dias',
     description: 'Um pouco de conforto não mata ninguém',
   },
   {
-    id: 'Rent15Day',
+    id: 'rent15Day',
     text: '15 Dias',
     description: 'Nunca mais eu ando a pé',
   },
 ];
 
 const VehicleDetails = () => {
+  const [vehicle, setVehicle] = useState<IVehicle>();
+  const [rentTime, setRentTime] = useState<keyof typeof RENT_TIME_MAP>();
+
+  const { id } = useParams<IRouteParams>();
+  const { push } = useHistory();
+
+  const inStock = !!vehicle && vehicle.stock > 0;
+
+  const price = (vehicle && rentTime && vehicle[rentTime]) || 0;
+  const formattedPrice = formatValue(price);
+
+  const selectRentTime = (optionId: string) => {
+    if (optionId === 'rent1Day' || optionId === 'rent7Day' || optionId === 'rent15Day') {
+      setRentTime(optionId);
+    }
+  };
+
+  const rentVehicle = useCallback(async () => {
+    if (!rentTime) {
+      return;
+    }
+
+    // rentCharacterVehicle(characterId, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
+
+    push('/');
+  }, [id, rentTime]);
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      const { data: response } = await api.get<ApiResponse<IVehicle>>(`vehicles/${id}`);
+
+      if (response.type === 'success') {
+        setVehicle(response.data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Container>
       <Content>
-        <Title>Emperor Vectre</Title>
+        <Title>{vehicle?.name}</Title>
 
-        <Category>Esporte</Category>
+        <Category>{vehicle?.category.name}</Category>
 
-        <Description>
-          “Seu gosto é inusitado demais para os clássicos? Mais exagerado do que razoável? Pare de procurar uma
-          lata-velha qualquer e cause aquela primeira impressão marcante com o Emperor Vectre. Como uma supermodelo
-          campeã dos 100 metros, o Vectre é um espetáculo em todos os sentidos.” - <b>Legendary Motorsport</b>
-        </Description>
+        <Description>{vehicle?.category.description}</Description>
 
         <StockInfo>
-          <FaCheck />
-          <p>Em estoque e pronto para entrega</p>
+          {inStock ? (
+            <>
+              <FaCheck className="green" />
+              <p>{IN_STOCK}</p>
+            </>
+          ) : (
+            <>
+              <FaTimes className="red" />
+              <p>{OUT_OF_STOCK}</p>
+            </>
+          )}
         </StockInfo>
 
         <RentTimeSelectorWrapper>
           <p>Tempo de aluguel</p>
-          <OptionsPicker options={RENT_TIME_OPTIONS} />
+          <OptionsPicker options={RENT_TIME_OPTIONS} onOptionPick={selectRentTime} />
         </RentTimeSelectorWrapper>
 
         <Price>
-          <span>R$</span> 500
+          Total <span>{formattedPrice}</span>
         </Price>
 
-        <Button>Alugar Veículo</Button>
+        <Button type="button" disabled={!rentTime} onClick={rentVehicle}>
+          Alugar Veículo
+        </Button>
       </Content>
 
       <Image>
-        <img src={vectre} alt="Emperor Vectre" />
+        <img src={vehicle?.image} alt={vehicle?.name} />
       </Image>
     </Container>
   );

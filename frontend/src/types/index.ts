@@ -37,6 +37,12 @@ export interface IVehicle {
   rent15Day: number;
 }
 
+export enum RentTimeEnum {
+  rent1Day,
+  rent7Day,
+  rent15Day,
+}
+
 export interface ICharacterVehicle {
   id: number;
   vehicle: IVehicle;

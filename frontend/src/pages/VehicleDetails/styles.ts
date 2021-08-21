@@ -52,15 +52,19 @@ export const Description = styled.p`
 export const StockInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 
   margin-top: 2rem;
 
   font-size: 0.9rem;
   font-weight: 500;
 
-  > svg {
+  > svg.green {
     color: #00974a;
+  }
+
+  > svg.red {
+    color: #d40303;
   }
 `;
 
@@ -133,5 +137,11 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
     background: #006e35;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background: #00974a;
   }
 `;
