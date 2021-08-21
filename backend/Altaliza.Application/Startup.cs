@@ -87,7 +87,9 @@ namespace Altaliza.Application
 
             app.UseCors(options =>
             {
-                options.WithOrigins("http://localhost:3000").AllowAnyMethod();
+                options.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
             });
 
             // app.UseHttpsRedirection();
