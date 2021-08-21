@@ -33,4 +33,12 @@ export const rentCharacterVehicle = async (
   return characterVehicle;
 };
 
+export const returnCharacterVehicle = async (characterId: number, characterVehicleId: number): Promise<boolean> => {
+  const { data: response } = await api.post<ApiResponse<null>>(
+    `characters/${characterId}/vehicles/${characterVehicleId}`,
+  );
+
+  return response.type === 'success';
+};
+
 export default api;
