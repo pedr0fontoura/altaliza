@@ -29,6 +29,25 @@ namespace Altaliza.Domain.Services
             return response;
         }
 
+        public async Task<DomainResponseDto<Character>> ShowCharacter(int id)
+        {
+            var response = new DomainResponseDto<Character>();
+
+            var character = await _characterRepository.FindById(id);
+
+            if (character == null)
+            {
+                response.AddError("characterId", "Personagem não encontrado");
+            }
+
+            if (!response.HasErrors())
+            {
+                response.Data = character;
+            }
+
+            return response;
+        }
+
         public async Task<DomainResponseDto<List<Character>>> ListCharacters()
         {
             var response = new DomainResponseDto<List<Character>>();

@@ -72,5 +72,29 @@ namespace Altaliza.Application.Controllers
                 return Ok(response);
             }
         }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<ApiResponseDto<Character>>> GetById([FromRoute] int id)
+        {
+            var response = new ApiResponseDto<Character>();
+
+            var domainResponse = await _characterService.ShowCharacter(id);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = domainResponse.Data;
+
+                return Ok(response);
+            }
+        }
     }
 }
