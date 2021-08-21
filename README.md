@@ -12,6 +12,7 @@
 
 <p align="center">
   <a href="#-sobre-a-aplicação">Sobre a aplicação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-imagens">Imagens</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-documentação-da-api">Documentação API</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-funcionalidades-da-aplicação">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -20,10 +21,35 @@
 
 <br />
 
-## 🚀 Sobre a aplicação
+## 💬 Sobre a aplicação
 Essa aplicação foi desenvolvida para o desafio fullstack do Cidade Alta.
 
 O objetivo do desafio era demonstrar os conhecimentos em C#, .NET Core e React.
+
+## 📷 Imagens
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/rKCaelJ.png" />
+</h4>
+
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/HrJ5h1P.png" />
+</h4>
+
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/iWrU61x.png" />
+</h4>
+
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/0ysWKZX.png" />
+</h4>
+
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/5QyXuCc.png" />
+</h4>
+
+<h4 align="center">
+  <img alt="Altaliza" src="https://i.imgur.com/BWTAhSM.png" />
+</h4>
 
 ## 💻 Como usar
 Para clonar e rodar essa aplicação você vai precisar do [Git](https://git-scm.com/), [Node.js v14.15.1+](https://nodejs.org/en/), [Yarn v1.22.5+](https://yarnpkg.com/) e o [.NET Core 3.1](https://dotnet.microsoft.com/download).
@@ -80,8 +106,8 @@ Você pode acessar a documentação gerada automaticamente pelo SwaggerGen em `h
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
----
 
-<br />
+<h1></h1>
+
 
 Made by Pedro Fontoura :wave: [Get in touch!](https://twitter.com/pedr0fontoura)
