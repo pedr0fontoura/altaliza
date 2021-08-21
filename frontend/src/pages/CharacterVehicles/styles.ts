@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { BREAKPOINTS } from '../../styles/constants';
 
@@ -91,6 +92,25 @@ export const Return = styled(Button)`
   background: #df3e3e;
 `;
 
-export const Renew = styled(Button)`
+export const Renew = styled(Link)`
+  border: none;
+  border-radius: 0.25rem;
+
+  padding: 0.5rem;
+
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+
+  transition: 0.1s;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+  }
+
   background: #00974a;
 `;

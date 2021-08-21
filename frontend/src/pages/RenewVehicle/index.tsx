@@ -1,10 +1,9 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { FaCheck, FaTimes } from 'react-icons/fa';
 
-import { ApiResponse, IVehicle } from '../../types';
+import { ApiResponse, ICharacterVehicle } from '../../types';
 
-import api, { rentCharacterVehicle } from '../../lib/api';
+import api, { renewCharacterVehicle } from '../../lib/api';
 
 import { RENT_TIME_MAP } from '../../utils/rentTime';
 import formatValue from '../../utils/formatValue';
@@ -19,7 +18,7 @@ import {
   Title,
   Category,
   Description,
-  StockInfo,
+  ExpirationDate,
   Image,
   RentTimeSelectorWrapper,
   Price,
@@ -29,9 +28,6 @@ import {
 interface IRouteParams {
   id: string;
 }
-
-const IN_STOCK = 'Em estoque e pronto para entrega!';
-const OUT_OF_STOCK = 'Infelizmente o veículo não está disponível';
 
 const RENT_TIME_OPTIONS: IOption[] = [
   {
@@ -51,18 +47,25 @@ const RENT_TIME_OPTIONS: IOption[] = [
   },
 ];
 
-const VehicleDetails = () => {
-  const [vehicle, setVehicle] = useState<IVehicle>();
+const RenewVehicle = () => {
+  const [characterVehicle, setVehicle] = useState<ICharacterVehicle>();
   const [rentTime, setRentTime] = useState<keyof typeof RENT_TIME_MAP>();
 
   const { id } = useParams<IRouteParams>();
   const { character } = useAuth();
   const { push } = useHistory();
 
-  const inStock = !!vehicle && vehicle.stock > 0;
+  const price = useMemo(
+    () => (characterVehicle && rentTime && characterVehicle.vehicle[rentTime]) || 0,
+    [characterVehicle, rentTime],
+  );
 
-  const price = (vehicle && rentTime && vehicle[rentTime]) || 0;
-  const formattedPrice = formatValue(price);
+  const formattedPrice = useMemo(() => formatValue(price), [price]);
+
+  const formattedDate = useMemo(
+    () => characterVehicle && new Date(characterVehicle.expirationDate).toLocaleString('pt-BR'),
+    [characterVehicle],
+  );
 
   const selectRentTime = (optionId: string) => {
     if (optionId === 'rent1Day' || optionId === 'rent7Day' || optionId === 'rent15Day') {
@@ -70,19 +73,19 @@ const VehicleDetails = () => {
     }
   };
 
-  const rentVehicle = useCallback(async () => {
+  const renewVehicle = useCallback(async () => {
     if (!rentTime || !character) {
       return;
     }
 
-    rentCharacterVehicle(character.id, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
+    await renewCharacterVehicle(character.id, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
 
     push('/character/vehicles');
   }, [id, rentTime, character]);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const { data: response } = await api.get<ApiResponse<IVehicle>>(`vehicles/${id}`);
+      const { data: response } = await api.get<ApiResponse<ICharacterVehicle>>(`characters/vehicles/${id}`);
 
       if (response.type === 'success') {
         setVehicle(response.data);
@@ -95,25 +98,19 @@ const VehicleDetails = () => {
   return (
     <Container>
       <Content>
-        <Title>{vehicle?.name}</Title>
+        <Title>
+          {characterVehicle?.vehicle.name}
+          <small>{`(${characterVehicle?.id})`}</small>
+        </Title>
 
-        <Category>{vehicle?.category.name}</Category>
+        <Category>{characterVehicle?.vehicle.category.name}</Category>
 
-        <Description>{vehicle?.category.description}</Description>
+        <Description>{characterVehicle?.vehicle.category.description}</Description>
 
-        <StockInfo>
-          {inStock ? (
-            <>
-              <FaCheck className="green" />
-              <p>{IN_STOCK}</p>
-            </>
-          ) : (
-            <>
-              <FaTimes className="red" />
-              <p>{OUT_OF_STOCK}</p>
-            </>
-          )}
-        </StockInfo>
+        <ExpirationDate>
+          <div>Expira em</div>
+          {formattedDate}
+        </ExpirationDate>
 
         <RentTimeSelectorWrapper>
           <p>Tempo de aluguel</p>
@@ -124,16 +121,16 @@ const VehicleDetails = () => {
           Total <span>{formattedPrice}</span>
         </Price>
 
-        <Button type="button" disabled={!rentTime || !character} onClick={rentVehicle}>
-          Alugar Veículo
+        <Button type="button" disabled={!rentTime || !character} onClick={renewVehicle}>
+          Renovar Veículo
         </Button>
       </Content>
 
       <Image>
-        <img src={vehicle?.image} alt={vehicle?.name} />
+        <img src={characterVehicle?.vehicle.image} alt={characterVehicle?.vehicle.name} />
       </Image>
     </Container>
   );
 };
 
-export default VehicleDetails;
+export default RenewVehicle;

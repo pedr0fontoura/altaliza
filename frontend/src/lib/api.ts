@@ -33,6 +33,31 @@ export const rentCharacterVehicle = async (
   return characterVehicle;
 };
 
+export const renewCharacterVehicle = async (
+  characterId: number,
+  vehicleId: number,
+  rentTime: RentTimeEnum,
+): Promise<ICharacterVehicle | undefined> => {
+  const requestBody = {
+    characterId,
+    vehicleId,
+    rentTime,
+  };
+
+  const { data: response } = await api.post<ApiResponse<ICharacterVehicle>>(
+    `characters/${characterId}/vehicles/${vehicleId}/renew`,
+    requestBody,
+  );
+
+  let characterVehicle: ICharacterVehicle | undefined;
+
+  if (response.type === 'success') {
+    characterVehicle = response.data;
+  }
+
+  return characterVehicle;
+};
+
 export const returnCharacterVehicle = async (characterId: number, characterVehicleId: number): Promise<boolean> => {
   const { data: response } = await api.delete<ApiResponse<null>>(
     `characters/${characterId}/vehicles/${characterVehicleId}`,

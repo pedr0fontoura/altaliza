@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { ApiResponse, ICharacterVehicle } from '../../types';
 
@@ -13,7 +12,6 @@ const CharacterVehicles = () => {
   const [vehicles, setVehicles] = useState<ICharacterVehicle[]>([]);
 
   const { character } = useAuth();
-  const { push } = useHistory();
 
   const parsedDates = useMemo(
     () => vehicles.map(cv => new Date(cv.expirationDate).toLocaleString('pt-BR')),
@@ -48,10 +46,6 @@ const CharacterVehicles = () => {
       }
     };
 
-    if (!character) {
-      push('/');
-    }
-
     fetchData();
   }, [character]);
 
@@ -81,7 +75,7 @@ const CharacterVehicles = () => {
                   <Return type="button" onClick={() => returnVehicle(character.id, id)}>
                     Devolver
                   </Return>
-                  <Renew type="button">Renovar</Renew>
+                  <Renew to={`/characters/vehicles/${id}/renew`}>Renovar</Renew>
                 </Actions>
               ) : null}
             </TableRow>
