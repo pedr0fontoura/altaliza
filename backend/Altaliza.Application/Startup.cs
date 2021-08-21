@@ -16,6 +16,7 @@ using Altaliza.Domain.Services;
 using Altaliza.Infra.Context;
 using Altaliza.Infra.Repositories;
 using Altaliza.Application.Dtos;
+using Altaliza.Application.HostedServices;
 
 namespace Altaliza.Application
 {
@@ -73,6 +74,9 @@ namespace Altaliza.Application
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Altaliza", Version = "v1" });
             });
+
+            services.AddHostedService<ConsumeScopedCharactersVehiclesService>();
+            services.AddScoped<ScopedCharactersVehiclesService, ScopedCharactersVehiclesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

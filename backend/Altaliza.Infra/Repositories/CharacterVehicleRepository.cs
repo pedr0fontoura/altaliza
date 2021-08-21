@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,17 @@ namespace Altaliza.Infra.Repositories
                 .Include(characterVehicle => characterVehicle.Vehicle)
                 .ThenInclude(vehicle => vehicle.Category)
                 .Where(characterVehicle => characterVehicle.Character.Id == characterId)
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<List<CharacterVehicle>> FindAllExpired()
+        {
+            IQueryable<CharacterVehicle> query = _set;
+
+            var result = await query
+                .Where(characterVehicle => DateTime.Compare(characterVehicle.ExpirationDate, DateTime.Now) < 0)
                 .ToListAsync();
 
             return result;
