@@ -81,7 +81,7 @@ const VehicleDetails = () => {
 
     rentCharacterVehicle(character.id, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
 
-    push('/');
+    push('/character/vehicles');
   }, [id, rentTime, character]);
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const VehicleDetails = () => {
           Total <span>{formattedPrice}</span>
         </Price>
 
-        <Button type="button" disabled={!rentTime} onClick={rentVehicle}>
+        <Button type="button" disabled={!rentTime || !character} onClick={rentVehicle}>
           Alugar Veículo
         </Button>
       </Content>

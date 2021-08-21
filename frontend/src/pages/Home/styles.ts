@@ -1,16 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import { BREAKPOINTS } from '../../styles/constants';
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
 
 export const Container = styled.div`
   width: 100%;
@@ -24,8 +14,6 @@ export const Container = styled.div`
   margin: auto;
 
   padding: 0 0.5rem 0 0.5rem;
-
-  animation: ${fadeIn} 2s;
 `;
 
 export const Section = styled.section`

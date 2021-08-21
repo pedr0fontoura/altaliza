@@ -34,7 +34,7 @@ export const rentCharacterVehicle = async (
 };
 
 export const returnCharacterVehicle = async (characterId: number, characterVehicleId: number): Promise<boolean> => {
-  const { data: response } = await api.post<ApiResponse<null>>(
+  const { data: response } = await api.delete<ApiResponse<null>>(
     `characters/${characterId}/vehicles/${characterVehicleId}`,
   );
 

@@ -1,16 +1,19 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { ApiResponse, ICharacterVehicle } from '../../types';
 
 import api, { returnCharacterVehicle } from '../../lib/api';
+
 import { useAuth } from '../../hooks/useAuth';
 
-import { Container, Table, TableRow, Actions, Return, Renew } from './styles';
+import { Container, Title, Table, TableRow, Actions, Return, Renew } from './styles';
 
 const CharacterVehicles = () => {
   const [vehicles, setVehicles] = useState<ICharacterVehicle[]>([]);
 
   const { character } = useAuth();
+  const { push } = useHistory();
 
   const parsedDates = useMemo(
     () => vehicles.map(cv => new Date(cv.expirationDate).toLocaleString('pt-BR')),
@@ -45,11 +48,17 @@ const CharacterVehicles = () => {
       }
     };
 
+    if (!character) {
+      push('/');
+    }
+
     fetchData();
   }, [character]);
 
   return (
     <Container>
+      <Title>Meus veículos</Title>
+
       <Table>
         <thead>
           <TableRow>

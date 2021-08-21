@@ -15,9 +15,6 @@ const Hero = () => {
         </Text>
         <div>
           <Button type="button">Alugar</Button>
-          <Button type="button" transparent>
-            Ver detalhes
-          </Button>
         </div>
       </Content>
       <Image src={vectre} alt="Emperor Vectre" />

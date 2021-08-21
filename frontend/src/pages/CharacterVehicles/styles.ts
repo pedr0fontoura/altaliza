@@ -7,6 +7,7 @@ export const Container = styled.div`
   max-width: ${BREAKPOINTS.LARGE};
 
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 
@@ -19,8 +20,15 @@ export const Container = styled.div`
   background: #fff;
 `;
 
+export const Title = styled.h1`
+  font-size: 1.6rem;
+  color: rgba(17, 24, 39, 0.9);
+`;
+
 export const Table = styled.table`
   width: 100%;
+
+  margin-top: 1rem;
 
   border-spacing: 0px;
   border-radius: 0.25rem;
