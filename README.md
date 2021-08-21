@@ -63,13 +63,16 @@ $ git clone https://github.com/pedr0fontoura/cda-altaliza
 $ cd cda-altaliza
 ```
 
-Para executar o backend:
+Para executar o backend, você irá precisar de um servidor MySQL rodando na sua máquina, edite as [configurações](https://github.com/pedr0fontoura/cda-altaliza/blob/c55affb09f7b3db7ebb90467e1a8727b4f3755e0/backend/Altaliza.Infra/Context/MySqlContext.cs#L13) conforme as informações do seu banco de dados.
 ```cmd
 # Navegue até o backend
 $ cd backend
 
 # Instale os pacotes NuGet e faça build da aplicação
 $ dotnet restore
+
+# Prepare o banco de dados para a aplicação
+$ dotnet ef database update
 
 # Execute a aplicação
 $ dotnet run --project Altaliza.Application
