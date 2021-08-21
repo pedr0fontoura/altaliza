@@ -5,6 +5,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import { ApiResponse, IVehicle } from '../../types';
 
 import api, { rentCharacterVehicle } from '../../lib/api';
+import { useAuth } from '../../hooks/useAuth';
 import formatValue from '../../utils/formatValue';
 
 import OptionsPicker, { IOption } from '../../components/OptionsPicker';
@@ -59,6 +60,7 @@ const VehicleDetails = () => {
   const [rentTime, setRentTime] = useState<keyof typeof RENT_TIME_MAP>();
 
   const { id } = useParams<IRouteParams>();
+  const { character } = useAuth();
   const { push } = useHistory();
 
   const inStock = !!vehicle && vehicle.stock > 0;
@@ -73,14 +75,14 @@ const VehicleDetails = () => {
   };
 
   const rentVehicle = useCallback(async () => {
-    if (!rentTime) {
+    if (!rentTime || !character) {
       return;
     }
 
-    // rentCharacterVehicle(characterId, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
+    rentCharacterVehicle(character.id, parseInt(id, 10), RENT_TIME_MAP[rentTime]);
 
     push('/');
-  }, [id, rentTime]);
+  }, [id, rentTime, character]);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {

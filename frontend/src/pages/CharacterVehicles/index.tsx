@@ -1,23 +1,16 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import {} from 'react-icons/fa';
 
 import { ApiResponse, ICharacterVehicle } from '../../types';
 
 import api, { returnCharacterVehicle } from '../../lib/api';
+import { useAuth } from '../../hooks/useAuth';
 
 import { Container, Table, TableRow, Actions, Return, Renew } from './styles';
-
-interface IRouteParams {
-  id: string;
-}
 
 const CharacterVehicles = () => {
   const [vehicles, setVehicles] = useState<ICharacterVehicle[]>([]);
 
-  const routeParams = useParams<IRouteParams>();
-
-  const currentCharacterId = parseInt(routeParams.id, 10);
+  const { character } = useAuth();
 
   const parsedDates = useMemo(
     () => vehicles.map(cv => new Date(cv.expirationDate).toLocaleString('pt-BR')),
@@ -41,9 +34,11 @@ const CharacterVehicles = () => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const { data: response } = await api.get<ApiResponse<ICharacterVehicle[]>>(
-        `characters/${routeParams.id}/vehicles`,
-      );
+      if (!character) {
+        return;
+      }
+
+      const { data: response } = await api.get<ApiResponse<ICharacterVehicle[]>>(`characters/${character.id}/vehicles`);
 
       if (response.type === 'success') {
         setVehicles(response.data);
@@ -51,7 +46,7 @@ const CharacterVehicles = () => {
     };
 
     fetchData();
-  }, []);
+  }, [character]);
 
   return (
     <Container>
@@ -62,7 +57,7 @@ const CharacterVehicles = () => {
             <th>Modelo</th>
             <th>Categoria</th>
             <th>Data de expiração</th>
-            <th>Ações</th>
+            {character ? <th>Ações</th> : null}
           </TableRow>
         </thead>
         <tbody>
@@ -72,12 +67,14 @@ const CharacterVehicles = () => {
               <td>{vehicle.name}</td>
               <td>{vehicle.category.name}</td>
               <td>{parsedDates[index]}</td>
-              <Actions>
-                <Return type="button" onClick={() => returnVehicle(currentCharacterId, id)}>
-                  Devolver
-                </Return>
-                <Renew type="button">Renovar</Renew>
-              </Actions>
+              {character ? (
+                <Actions>
+                  <Return type="button" onClick={() => returnVehicle(character.id, id)}>
+                    Devolver
+                  </Return>
+                  <Renew type="button">Renovar</Renew>
+                </Actions>
+              ) : null}
             </TableRow>
           ))}
         </tbody>

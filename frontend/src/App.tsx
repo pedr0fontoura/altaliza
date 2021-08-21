@@ -2,6 +2,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import GlobalStyles from './styles/global';
 
+import AppProvider from './hooks';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -12,9 +14,11 @@ function App() {
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <Navbar />
-        <Routes />
-        <Footer />
+        <AppProvider>
+          <Navbar />
+          <Routes />
+          <Footer />
+        </AppProvider>
       </BrowserRouter>
     </>
   );

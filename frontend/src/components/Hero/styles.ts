@@ -48,7 +48,7 @@ export const Text = styled.p`
 export const Image = styled(FadedImage)`
   width: 38rem;
 
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 25px -12px rgba(0, 0, 0, 0.5);
 `;
 
 export const Button = styled.button<IButtonProps>`

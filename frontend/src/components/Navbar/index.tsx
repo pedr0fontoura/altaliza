@@ -16,8 +16,6 @@ const Navbar = () => {
         <StyledLink to="/" $active={pathname === '/'}>
           Início
         </StyledLink>
-        <StyledLink to="/#">Veículos</StyledLink>
-        <StyledLink to="/#">Categorias</StyledLink>
       </Menu>
       <NavbarProfile />
     </Container>

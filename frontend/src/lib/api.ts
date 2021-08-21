@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ApiResponse, ICharacterVehicle, RentTimeEnum } from '../types';
+import { ApiResponse, ICharacterVehicle, RentTimeEnum, ICharacter } from '../types';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_ALTALIZA_API,
@@ -39,6 +39,23 @@ export const returnCharacterVehicle = async (characterId: number, characterVehic
   );
 
   return response.type === 'success';
+};
+
+export const createCharacter = async (name: string, wallet: number): Promise<ICharacter | undefined> => {
+  const requestBody = {
+    name,
+    wallet,
+  };
+
+  const { data: response } = await api.post<ApiResponse<ICharacter>>('characters', requestBody);
+
+  let character: ICharacter | undefined;
+
+  if (response.type === 'success') {
+    character = response.data;
+  }
+
+  return character;
 };
 
 export default api;
