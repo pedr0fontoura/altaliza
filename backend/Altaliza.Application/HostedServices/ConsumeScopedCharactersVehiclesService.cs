@@ -13,6 +13,8 @@ namespace Altaliza.Application.HostedServices
 
         private readonly IServiceProvider _serviceProvider;
 
+        private readonly int TASK_TIME = 60 * 60;
+
         public ConsumeScopedCharactersVehiclesService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -24,7 +26,7 @@ namespace Altaliza.Application.HostedServices
             Console.WriteLine("[Consumer][CharactersVehicles Service] Service started");
 
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-            TimeSpan.FromSeconds(60));
+            TimeSpan.FromSeconds(TASK_TIME));
 
             return Task.CompletedTask;
         }
