@@ -55,6 +55,35 @@ namespace Altaliza.Application.Controllers
         }
 
         [HttpGet]
+        [Route("characters/vehicles/{characterVehicleId:int}")]
+        public async Task<ActionResult<ApiResponseDto<ShowCharacterVehicleResponse>>> GetById([FromRoute] int characterVehicleId)
+        {
+            var response = new ApiResponseDto<ShowCharacterVehicleResponse>();
+
+            var domainResponse = await _characterVehicleService.ShowCharacterVehicle(characterVehicleId);
+
+            if (domainResponse.HasErrors())
+            {
+                response.Type = "error";
+                response.Errors = domainResponse.Errors;
+                response.Status = 400;
+
+                return BadRequest(response);
+            }
+            else
+            {
+                response.Data = new ShowCharacterVehicleResponse
+                {
+                    Id = domainResponse.Data.Id,
+                    Vehicle = domainResponse.Data.Vehicle,
+                    ExpirationDate = domainResponse.Data.ExpirationDate,
+                };
+
+                return response;
+            }
+        }
+
+        [HttpGet]
         [Route("characters/{characterId:int}/vehicles")]
         public async Task<ActionResult<ApiResponseDto<List<ListCharacterRentedVehiclesResponse>>>> GetByCharacterId([FromRoute] int characterId)
         {

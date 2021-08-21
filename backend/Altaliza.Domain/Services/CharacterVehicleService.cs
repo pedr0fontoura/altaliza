@@ -94,6 +94,25 @@ namespace Altaliza.Domain.Services
             return response;
         }
 
+        public async Task<DomainResponseDto<CharacterVehicle>> ShowCharacterVehicle(int id)
+        {
+            var response = new DomainResponseDto<CharacterVehicle>();
+
+            var characterVehicle = await _characterVehicleRepository.FindById(id);
+
+            if (characterVehicle == null)
+            {
+                response.AddError("characterVehicleId", "Veículo de personagem não encontrado");
+            }
+
+            if (!response.HasErrors())
+            {
+                response.Data = characterVehicle;
+            }
+
+            return response;
+        }
+
         public async Task<DomainResponseDto<List<CharacterVehicle>>> ListCharacterVehiclesRentedByCharacter(int id)
         {
             var response = new DomainResponseDto<List<CharacterVehicle>>();
