@@ -57,7 +57,7 @@ Desafio entregue no commit [feat(frontend): add CharacterVehicles page](https://
 Para clonar e rodar essa aplicação você vai precisar do [Git](https://git-scm.com/), [Node.js v14.15.1+](https://nodejs.org/en/), [Yarn v1.22.5+](https://yarnpkg.com/) e o [.NET Core 3.1](https://dotnet.microsoft.com/download).
 
 Da sua linha de comando:
-```cmd
+```bash
 # Clone esse repositório
 $ git clone https://github.com/pedr0fontoura/cda-altaliza
 
@@ -66,7 +66,7 @@ $ cd cda-altaliza
 ```
 
 Para executar o backend, você irá precisar de um servidor MySQL rodando na sua máquina, edite as [configurações](https://github.com/pedr0fontoura/cda-altaliza/blob/c55affb09f7b3db7ebb90467e1a8727b4f3755e0/backend/Altaliza.Infra/Context/MySqlContext.cs#L13) conforme as informações do seu banco de dados.
-```cmd
+```bash
 # Navegue até o backend
 $ cd backend
 
@@ -83,7 +83,7 @@ $ dotnet run --project Altaliza.Application
 Para o frontend, você primeiro precisa popular o arquivo `.env` seguindo o [`.env.example`](https://github.com/pedr0fontoura/cda-altaliza/blob/main/frontend/.env.example).
 
 Em seguida:
-```cmd
+```bash
 
 # Navegue até o frontend
 $ cd frontend
