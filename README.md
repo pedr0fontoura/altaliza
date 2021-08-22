@@ -74,7 +74,7 @@ $ cd backend
 $ dotnet build
 
 # Prepare o banco de dados para a aplicação
-$ dotnet ef database update
+$ dotnet ef database update --project Altaliza.Infra
 
 # Execute a aplicação
 $ dotnet run --project Altaliza.Application
