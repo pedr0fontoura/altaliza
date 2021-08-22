@@ -26,6 +26,8 @@ Essa aplicação foi desenvolvida para o desafio fullstack do Cidade Alta.
 
 O objetivo do desafio era demonstrar os conhecimentos em C#, .NET Core e React.
 
+Desafio entregue no commit [feat(frontend): add CharacterVehicles page](https://github.com/pedr0fontoura/cda-altaliza/tree/e04d2e65b00d5f955edac768621357a5cb969b97)
+
 ## 📷 Imagens
 <h4 align="center">
   <img alt="Altaliza" src="https://i.imgur.com/rKCaelJ.png" />
@@ -69,7 +71,7 @@ Para executar o backend, você irá precisar de um servidor MySQL rodando na sua
 $ cd backend
 
 # Instale os pacotes NuGet e faça build da aplicação
-$ dotnet restore
+$ dotnet build
 
 # Prepare o banco de dados para a aplicação
 $ dotnet ef database update
