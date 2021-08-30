@@ -115,4 +115,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 <h1></h1>
 
 
-Made by Pedro Fontoura :wave: [Get in touch!](https://twitter.com/pedr0fontoura)
+Feito por Pedro Fontoura :wave: [Entre em contato!](https://twitter.com/pedr0fontoura)
