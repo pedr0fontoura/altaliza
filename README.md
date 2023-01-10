@@ -7,28 +7,26 @@
 </h1>
 
 <h3 align="center">
-  Cidade Alta: Desafio FullStack
+  Altaliza: Full-stack car rental application
 </h3>
 
 <p align="center">
-  <a href="#-sobre-a-aplicação">Sobre a aplicação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-imagens">Imagens</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-documentação-da-api">Documentação API</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-funcionalidades-da-aplicação">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-licença">Licença</a>
+  <a href="#-about-the-application">About the application</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-images">Images</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-how-to-use">How to use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-api-documentation">API Documentation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-application-features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
 </p>
 
 <br />
 
-## 💬 Sobre a aplicação
-Essa aplicação foi desenvolvida para o desafio fullstack do Cidade Alta.
+## 💬 About the application
+This application was developed for a full-stack position.
 
-O objetivo do desafio era demonstrar os conhecimentos em C#, .NET Core e React.
+The goal was to demonstrate my knowledge in C#, .NET Core and React.
 
-Desafio entregue no commit [feat(frontend): add CharacterVehicles page](https://github.com/pedr0fontoura/cda-altaliza/tree/e04d2e65b00d5f955edac768621357a5cb969b97)
-
-## 📷 Imagens
+## 📷 Images
 <h4 align="center">
   <img alt="Altaliza" src="https://i.imgur.com/rKCaelJ.png" />
 </h4>
@@ -53,66 +51,65 @@ Desafio entregue no commit [feat(frontend): add CharacterVehicles page](https://
   <img alt="Altaliza" src="https://i.imgur.com/BWTAhSM.png" />
 </h4>
 
-## 💻 Como usar
-Para clonar e rodar essa aplicação você vai precisar do [Git](https://git-scm.com/), [Node.js v14.15.1+](https://nodejs.org/en/), [Yarn v1.22.5+](https://yarnpkg.com/) e o [.NET Core 3.1](https://dotnet.microsoft.com/download).
+## 💻 How to use
+To clone and run this application you will need [Git](https://git-scm.com/), [Node.js v14.15.1+](https://nodejs.org/en/), [Yarn v1.22.5+](https://yarnpkg.com/) and [.NET Core 3.1](https://dotnet.microsoft.com/download).
 
-Da sua linha de comando:
+On your shell:
 ```bash
-# Clone esse repositório
+# Clone the repository
 $ git clone https://github.com/pedr0fontoura/cda-altaliza
 
-# Acesse o repositório
+# Navigate to the folder
 $ cd cda-altaliza
 ```
+To deploy the back-end, you'll need a MySQL server running. Fill the [settings](https://github.com/pedr0fontoura/cda-altaliza/blob/c55affb09f7b3db7ebb90467e1a8727b4f3755e0/backend/Altaliza.Infra/Context/MySqlContext.cs#L13) to your database credentials.
 
-Para executar o backend, você irá precisar de um servidor MySQL rodando na sua máquina, edite as [configurações](https://github.com/pedr0fontoura/cda-altaliza/blob/c55affb09f7b3db7ebb90467e1a8727b4f3755e0/backend/Altaliza.Infra/Context/MySqlContext.cs#L13) conforme as informações do seu banco de dados.
 ```bash
-# Navegue até o backend
+# Navigate to the back-end
 $ cd backend
 
-# Instale os pacotes NuGet e faça build da aplicação
+# Install the NuGet packages and build the application
 $ dotnet build
 
-# Prepare o banco de dados para a aplicação
+# Update the database schema
 $ dotnet ef database update --project Altaliza.Infra
 
-# Execute a aplicação
+# Run the application
 $ dotnet run --project Altaliza.Application
 ```
 
-Para o frontend, você primeiro precisa popular o arquivo `.env` seguindo o [`.env.example`](https://github.com/pedr0fontoura/cda-altaliza/blob/main/frontend/.env.example).
+To deploy the front-end, you'll need to fill the `.env` file using the [`.env.example`](https://github.com/pedr0fontoura/cda-altaliza/blob/main/frontend/.env.example) as example.
 
-Em seguida:
+Then:
 ```bash
-
-# Navegue até o frontend
+# Navigate to the front-end
 $ cd frontend
 
-# Instale as dependências da aplicação
+# Install the application dependencies
 $ yarn
 
-# Execute a aplicação React
+# Run the react application
 $ yarn start
 ```
 
-## 🧰 Documentação da API
+## 🧰 API Documentation
 
-Você pode acessar a documentação gerada automaticamente pelo SwaggerGen em `http://localhost:5000/swagger`
+You can access the SwaggerGen auto-generated documentation on the following URL `http://localhost:5000/swagger`
 
-## ✨ Funcionalidades da aplicação
-- **Listar os veículos para aluguel**
-- **Alugar um veículo durante 1, 7 ou 15 dias**
-- **Renovação automática de 1 dia para o aluguel**
-- **Devolução / renovação manual de veículos alugados**
-- **Listagem dos seus veículos alugados**
-- **"Autenticação" no front-end**
+## ✨ Application features
+- **List vehicles to rent**
+- **Rent a vehicle for 1, 7, or 15 days**
+- **1 day rent auto-renew**
+- **Rental car return / manual renew**
+- **List rented vehicles**
+- **Mock authentication system on the front-end**
 
-## 📝 Licença
+## 📝 License
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is under MIT license. See the file [LICENSE](LICENSE) for more details.
 
 
 <h1></h1>
 
 
-Feito por Pedro Fontoura :wave: [Entre em contato!](https://twitter.com/pedr0fontoura)
+Made by Pedro Fontoura :wave: [Get in touch!](https://www.linkedin.com/in/pffrd/)
